@@ -88,7 +88,7 @@ class TodoApp {
 
   private addTodo(text: string): void {
     const newTodo: Todo = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       text,
       completed: false,
       createdAt: Date.now()
@@ -249,7 +249,25 @@ class TodoApp {
     const stored = localStorage.getItem('todos');
     if (stored) {
       try {
-        this.todos = JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        // Validate that parsed data is an array
+        if (Array.isArray(parsed)) {
+          // Validate each todo has required properties
+          const isValid = parsed.every(todo => 
+            todo && 
+            typeof todo.id === 'string' && 
+            typeof todo.text === 'string' && 
+            typeof todo.completed === 'boolean'
+          );
+          if (isValid) {
+            this.todos = parsed;
+          } else {
+            console.warn('Invalid todo data structure in localStorage');
+            this.todos = [];
+          }
+        } else {
+          this.todos = [];
+        }
       } catch (e) {
         console.error('Failed to load todos:', e);
         this.todos = [];
