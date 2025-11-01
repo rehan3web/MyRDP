@@ -4,43 +4,43 @@
 
 @layer components {
   .filter-btn {
-    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+    @apply text-blue-600 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200;
   }
 
   .filter-btn.active {
-    @apply bg-blue-500 text-white hover:bg-blue-600 hover:text-white;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white border-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg;
   }
 
   .todo-item {
-    @apply flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg transition-all duration-200 hover:border-blue-300 hover:shadow-md;
+    @apply flex items-center gap-4 p-5 bg-gradient-to-r from-white to-blue-50 border-2 border-blue-200 rounded-xl transition-all duration-300 hover:border-blue-400 hover:shadow-xl hover:scale-[1.02];
   }
 
   .todo-item.completed {
-    @apply bg-gray-50 border-gray-300;
+    @apply bg-gradient-to-r from-blue-50 to-blue-100 border-blue-300;
   }
 
   .todo-checkbox {
-    @apply w-5 h-5 rounded border-2 border-gray-400 cursor-pointer transition-all;
+    @apply w-6 h-6 rounded-lg border-2 border-blue-400 cursor-pointer transition-all hover:border-blue-600;
   }
 
   .todo-checkbox:checked {
-    @apply bg-blue-500 border-blue-500;
+    @apply bg-gradient-to-br from-blue-500 to-blue-600 border-blue-600;
   }
 
   .todo-text {
-    @apply flex-1 text-gray-800 font-medium;
+    @apply flex-1 text-blue-900 font-semibold text-lg;
   }
 
   .todo-text.completed {
-    @apply text-gray-500 line-through;
+    @apply text-blue-400 line-through;
   }
 
   .btn-edit {
-    @apply px-3 py-1 text-sm bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors;
+    @apply px-4 py-2 text-sm bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all shadow-md hover:shadow-lg flex items-center gap-1;
   }
 
   .btn-delete {
-    @apply px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors;
+    @apply px-4 py-2 text-sm bg-gradient-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all shadow-md hover:shadow-lg flex items-center gap-1;
   }
 }
 
@@ -48,29 +48,56 @@
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes slideOut {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
   to {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(20px) scale(0.95);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
   }
 }
 
 .animate-slide-in {
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .animate-slide-out {
   animation: slideOut 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eff6ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
 }
