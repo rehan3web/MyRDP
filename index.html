@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern TODO App</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+  <div id="app" class="container mx-auto px-4 py-8 max-w-2xl">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-bold text-gray-800 mb-2">
+        <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          My TODO App
+        </span>
+      </h1>
+      <p class="text-gray-600">Stay organized and productive</p>
+    </div>
+
+    <!-- Add TODO Form -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <form id="todo-form" class="flex gap-2">
+        <input
+          type="text"
+          id="todo-input"
+          placeholder="What needs to be done?"
+          class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all transform hover:scale-105 active:scale-95 shadow-md"
+        >
+          Add
+        </button>
+      </form>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="bg-white rounded-lg shadow-lg p-4 mb-6">
+      <div class="flex gap-2 justify-center flex-wrap">
+        <button
+          data-filter="all"
+          class="filter-btn px-4 py-2 rounded-lg font-medium transition-all active"
+        >
+          All
+        </button>
+        <button
+          data-filter="active"
+          class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
+        >
+          Active
+        </button>
+        <button
+          data-filter="completed"
+          class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
+        >
+          Completed
+        </button>
+      </div>
+    </div>
+
+    <!-- TODO List -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <ul id="todo-list" class="space-y-3">
+        <!-- TODO items will be inserted here -->
+      </ul>
+      <div id="empty-state" class="text-center py-8 text-gray-400 hidden">
+        <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <p class="text-xl font-medium">No tasks yet</p>
+        <p class="text-sm mt-2">Add a task to get started!</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-6 bg-white rounded-lg shadow-lg p-4">
+      <div class="flex justify-between items-center text-sm text-gray-600">
+        <span id="todo-count">0 tasks remaining</span>
+        <button
+          id="clear-completed"
+          class="text-red-500 hover:text-red-700 font-medium transition-colors"
+        >
+          Clear completed
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

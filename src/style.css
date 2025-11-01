@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .filter-btn {
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+  }
+
+  .filter-btn.active {
+    @apply bg-blue-500 text-white hover:bg-blue-600 hover:text-white;
+  }
+
+  .todo-item {
+    @apply flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg transition-all duration-200 hover:border-blue-300 hover:shadow-md;
+  }
+
+  .todo-item.completed {
+    @apply bg-gray-50 border-gray-300;
+  }
+
+  .todo-checkbox {
+    @apply w-5 h-5 rounded border-2 border-gray-400 cursor-pointer transition-all;
+  }
+
+  .todo-checkbox:checked {
+    @apply bg-blue-500 border-blue-500;
+  }
+
+  .todo-text {
+    @apply flex-1 text-gray-800 font-medium;
+  }
+
+  .todo-text.completed {
+    @apply text-gray-500 line-through;
+  }
+
+  .btn-edit {
+    @apply px-3 py-1 text-sm bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors;
+  }
+
+  .btn-delete {
+    @apply px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors;
+  }
+}
+
+/* Custom animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-slide-out {
+  animation: slideOut 0.3s ease-out;
+}
