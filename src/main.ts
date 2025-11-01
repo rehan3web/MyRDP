@@ -78,9 +78,12 @@ class TodoApp {
     // Filter buttons
     this.filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        this.currentFilter = btn.dataset.filter as FilterType;
-        this.updateFilterButtons();
-        this.render();
+        const filter = btn.dataset.filter;
+        if (filter === 'all' || filter === 'active' || filter === 'completed') {
+          this.currentFilter = filter;
+          this.updateFilterButtons();
+          this.render();
+        }
       });
     });
 
