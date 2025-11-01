@@ -11,6 +11,16 @@ interface Todo {
 
 type FilterType = 'all' | 'active' | 'completed';
 
+// Utility function to generate unique IDs
+function generateId(): string {
+  // Use crypto.randomUUID() if available (requires secure context)
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback for non-secure contexts
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
 // Application state
 class TodoApp {
   private todos: Todo[] = [];
@@ -27,14 +37,26 @@ class TodoApp {
   private filterBtns: NodeListOf<HTMLButtonElement>;
 
   constructor() {
-    // Initialize DOM elements
-    this.todoForm = document.getElementById('todo-form') as HTMLFormElement;
-    this.todoInput = document.getElementById('todo-input') as HTMLInputElement;
-    this.todoList = document.getElementById('todo-list') as HTMLUListElement;
-    this.emptyState = document.getElementById('empty-state') as HTMLElement;
-    this.todoCount = document.getElementById('todo-count') as HTMLElement;
-    this.clearCompletedBtn = document.getElementById('clear-completed') as HTMLButtonElement;
-    this.filterBtns = document.querySelectorAll('.filter-btn');
+    // Initialize DOM elements with validation
+    const todoForm = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
+    const emptyState = document.getElementById('empty-state');
+    const todoCount = document.getElementById('todo-count');
+    const clearCompletedBtn = document.getElementById('clear-completed');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    if (!todoForm || !todoInput || !todoList || !emptyState || !todoCount || !clearCompletedBtn || filterBtns.length === 0) {
+      throw new Error('Required DOM elements not found. Please check the HTML structure.');
+    }
+
+    this.todoForm = todoForm as HTMLFormElement;
+    this.todoInput = todoInput as HTMLInputElement;
+    this.todoList = todoList as HTMLUListElement;
+    this.emptyState = emptyState as HTMLElement;
+    this.todoCount = todoCount as HTMLElement;
+    this.clearCompletedBtn = clearCompletedBtn as HTMLButtonElement;
+    this.filterBtns = filterBtns as NodeListOf<HTMLButtonElement>;
 
     // Load todos from localStorage
     this.loadTodos();
@@ -88,7 +110,7 @@ class TodoApp {
 
   private addTodo(text: string): void {
     const newTodo: Todo = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       text,
       completed: false,
       createdAt: Date.now()
