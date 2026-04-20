@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern TODO App</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-blue-100 min-h-screen relative overflow-hidden">
+  <!-- Decorative Background Vectors -->
+  <div class="fixed inset-0 pointer-events-none opacity-30">
+    <svg class="absolute top-0 left-0 w-64 h-64 text-blue-400" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+      <circle cx="100" cy="100" r="40" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+    </svg>
+    <svg class="absolute bottom-0 right-0 w-96 h-96 text-blue-300" viewBox="0 0 200 200" fill="none">
+      <path d="M0,100 Q50,50 100,100 T200,100" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+      <path d="M0,120 Q50,70 100,120 T200,120" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <path d="M0,140 Q50,90 100,140 T200,140" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <div id="app" class="container mx-auto px-4 py-8 max-w-3xl relative z-10">
+    <!-- Header with Vector Icon -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mb-4 transform hover:scale-105 transition-transform">
+        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+        </svg>
+      </div>
+      <h1 class="text-6xl font-bold mb-3">
+        <span class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+          My TODO App
+        </span>
+      </h1>
+      <p class="text-blue-600 text-lg font-medium">Stay organized and productive ✨</p>
+    </div>
+
+    <!-- Add TODO Form -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-6 border border-blue-100">
+      <form id="todo-form" class="flex gap-3">
+        <div class="flex-1 relative">
+          <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="What needs to be done?"
+            class="w-full pl-12 pr-4 py-4 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+            autocomplete="off"
+          />
+        </div>
+        <button
+          type="submit"
+          class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Add
+        </button>
+      </form>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="bg-white rounded-2xl shadow-xl p-5 mb-6 border border-blue-100">
+      <div class="flex gap-3 justify-center flex-wrap">
+        <button
+          data-filter="all"
+          class="filter-btn px-6 py-3 rounded-xl font-semibold transition-all active flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          All
+        </button>
+        <button
+          data-filter="active"
+          class="filter-btn px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Active
+        </button>
+        <button
+          data-filter="completed"
+          class="filter-btn px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Completed
+        </button>
+      </div>
+    </div>
+
+    <!-- TODO List -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 border border-blue-100">
+      <ul id="todo-list" class="space-y-3">
+        <!-- TODO items will be inserted here -->
+      </ul>
+      <div id="empty-state" class="text-center py-12 text-blue-300 hidden">
+        <div class="relative inline-block mb-6">
+          <svg class="w-32 h-32 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <svg class="absolute -top-2 -right-2 w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </div>
+        <p class="text-2xl font-bold text-blue-500 mb-2">No tasks yet</p>
+        <p class="text-blue-400">Add a task to get started!</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-6 bg-white rounded-2xl shadow-xl p-5 border border-blue-100">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+          <span id="todo-count" class="text-blue-600 font-semibold">0 tasks remaining</span>
+        </div>
+        <button
+          id="clear-completed"
+          class="flex items-center gap-2 px-4 py-2 text-red-500 hover:text-white hover:bg-red-500 font-semibold transition-all rounded-lg"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          Clear completed
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
